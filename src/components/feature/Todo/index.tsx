@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { TodoDiv } from './styled';
-import { TodosProps } from '../../../\butils/interfaces';
+import { ListLayout, ItemLayout, Btn } from './styled';
+import { TodosProps } from '../../../utils/interfaces';
 
 const Todo = ({ todo, deleteTodo, updateTodo }: TodosProps) => {
 	const [editMode, setEditMode] = useState<boolean>(false);
@@ -9,7 +9,7 @@ const Todo = ({ todo, deleteTodo, updateTodo }: TodosProps) => {
 
 	const changeTodo = async () => {
 		if (newTodo !== '' && newTodo !== todo.todo) {
-			if (todo.isCompleted !== newCheck) {
+			if (newTodo !== '' && newTodo === todo.todo) {
 				await updateTodo(todo.id, newTodo, newCheck);
 				setEditMode(false);
 			} else {
@@ -26,30 +26,45 @@ const Todo = ({ todo, deleteTodo, updateTodo }: TodosProps) => {
 		}
 	};
 
+	const checkTodo = async () => {
+		if (!editMode) {
+			await updateTodo(todo.id, newTodo, newCheck);
+		}
+	};
+
 	return (
-		<TodoDiv>
-			{editMode ? (
-				<div>
-					<input type="checkbox" checked={newCheck} onChange={(e) => setNewCheck((prev) => !prev)} />
-					<input type="text" value={newTodo} onChange={(e) => setNewTodo(e.target.value)} />
-					<div className="btnDiv">
-						<button onClick={changeTodo} disabled={todo.isCompleted === newCheck && newTodo === todo.todo}>
-							완료
-						</button>
-						<button onClick={() => setEditMode(false)}>취소</button>
-					</div>
-				</div>
-			) : (
-				<div>
-					{todo.isCompleted ? <p className="completeCheckbox">완료</p> : <p className="notcompleteCheckbox">미완</p>}
-					<p>{todo.todo}</p>
-					<div className="btnDiv">
-						<button onClick={() => setEditMode(true)}>수정</button>
-						<button onClick={() => deleteTodo(todo.id)}>삭제</button>
-					</div>
-				</div>
-			)}
-		</TodoDiv>
+		<ListLayout>
+			<ItemLayout>
+				<Btn
+					onClick={() => {
+						setNewCheck((prev) => !prev);
+						checkTodo();
+					}}
+					disabled={editMode}
+				>
+					{newCheck ? <p>✅</p> : <p>⬜</p>}
+				</Btn>
+				{editMode ? (
+					<>
+						<input type="text" value={newTodo} onChange={(e) => setNewTodo(e.target.value)} />
+						<div>
+							<Btn onClick={changeTodo} disabled={todo.isCompleted === newCheck && newTodo === todo.todo}>
+								완료
+							</Btn>
+							<Btn onClick={() => setEditMode(false)}>취소</Btn>
+						</div>
+					</>
+				) : (
+					<>
+						<p>{todo.todo}</p>
+						<div>
+							<Btn onClick={() => setEditMode(true)}>수정</Btn>
+							<Btn onClick={() => deleteTodo(todo.id)}>삭제</Btn>
+						</div>
+					</>
+				)}
+			</ItemLayout>
+		</ListLayout>
 	);
 };
 
