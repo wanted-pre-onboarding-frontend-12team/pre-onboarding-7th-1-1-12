@@ -32,7 +32,8 @@ const Auth = () => {
 		return false;
 	};
 
-	const onSign = async () => {
+	const onSign = async (e: React.MouseEvent<HTMLElement>) => {
+		e.preventDefault();
 		let res: AxiosResponse;
 		if (emailRef.current && passwordRef.current) {
 			try {
@@ -53,6 +54,11 @@ const Auth = () => {
 			}
 		}
 	};
+
+	//FIXME: 리렌더링 문제로 회원가입 버튼을 눌러도 로그인 상황으로 돌아오는 것 같음.
+	useEffect(() => {
+		console.log(signup, '로그인 or 회원가입');
+	}, [signup]);
 
 	return (
 		<SignDiv>
