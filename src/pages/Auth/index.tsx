@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignDiv } from './styled';
+import { authApi } from '../../apis/auth';
+import { AxiosError, AxiosResponse } from 'axios';
 
 const Auth = () => {
 	const navigate = useNavigate();
@@ -30,7 +32,27 @@ const Auth = () => {
 		return false;
 	};
 
-	const onSign = () => {};
+	const onSign = async () => {
+		let res: AxiosResponse;
+		if (emailRef.current && passwordRef.current) {
+			try {
+				res = signup
+					? await authApi.signUp(emailRef.current.value, passwordRef.current.value)
+					: await authApi.signIn(emailRef.current.value, passwordRef.current.value);
+				localStorage.setItem('accessToken', res.data.access_token);
+				navigate('/todo');
+			} catch (err) {
+				const e = err as AxiosError;
+				if (e.isAxiosError) {
+					alert(e.message);
+					console.log(e.message);
+				} else {
+					alert('에러 발생: ' + err);
+					console.log(err);
+				}
+			}
+		}
+	};
 
 	return (
 		<SignDiv>
