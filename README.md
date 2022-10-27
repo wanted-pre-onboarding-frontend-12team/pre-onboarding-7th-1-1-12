@@ -103,60 +103,60 @@ yarn run build
 
 <br />
 
-## 레포지토리 구조
+## 레포지토리 구조(src)
 
 ```text
-├─ constants
-│   └─ hint.ts
+├─ constants                   // Constants Modules
+│   └─ hint.ts                 // 로그인 / 회원가입 validation 및 error 메시지 상수
 │
-├─ utils
-│   └─ interfaces.ts
+├─ utils                       // Utilization Modules
+│   └─ interfaces.ts           // 프로젝트 공유 타입 모음
 │
-├─ api
-│   ├─ auth.ts
-│   ├─ todo.ts
-│   └─ requester.ts
+├─ api                         // API Modules
+│   ├─ auth.ts                 // 로그인 / 회원가입 API
+│   ├─ todo.ts                 // 투두 앱 API
+│   └─ requester.ts            // Axios Http Client Module
 │
-├─ styles
-│   ├─ GlobalStyle.tsx
-│   └─ Theme.ts
+├─ styles                      // Style modules
+│   ├─ GlobalStyle.tsx         // 전역 스타일링 컴포넌트
+│   └─ Theme.ts                // 커스텀 테마 
 │
-├─ components
-│   ├─ feature
-│   │    ├─ AddTodoForm
+├─ components                  // Components Modules
+│   ├─ feature                 // 특정 도메인 컴포넌트 모음
+│   │    ├─ AddTodoForm        // 투두 아이템 추가 폼 컴포넌트
 │   │    │    ├─ index.tsx
 │   │    │    └─ styled.ts
 │   │    │
-│   │    ├─ Todo
-│   │    │    ├─ styled.ts
+│   │    ├─ Todo               // 투두 아이템 컴포넌트
+│   │    │    ├─ index.ts
 │   │    │    └─ styled.ts
 │   │
-│   ├─ shared
-│   │    ├─ Header
+│   ├─ shared                  // 공통 컴포넌트 모음
+│   │    ├─ Header             // 헤더 컴포넌트
 │   │    │    ├─ index.tsx
 │   │    │    └─ styled.ts
 │   │    │
-│   │    ├─ Footer 
+│   │    ├─ Footer             // 푸터 컴포넌트
 │   │    │     ├─ index.ts
 │   │    │     └─ styled.ts
 │
-├─ pages
-│   ├─ Auth
+├─ pages                        // 페이지 컴포넌트
+│   ├─ Auth                     // 로그인 / 회원가입 페이지
 │   │   ├─ index.tsx
 │   │   ├─ styled.ts
-│   │   └─ useInput.tsx
+│   │   └─ useInput.tsx         // useInput 커스텀 훅 ( 로그인 / 회원가입 정보 입력에 대한 로직이 담긴 )
 │   │
-│   ├─ Todos
+│   ├─ Todos                    // 투두 리스트 페이지 
 │   │   ├─ index.tsx
 │   │   ├─ styled.tsx
-│   │   └─ useTodos.tsx
+│   │   └─ useTodos.tsx         // useTodos 커스텀 훅 ( 투두 리스트 CRUD 에 대한 로직이 담긴 )
 │   │
 │   └─ index.tsx
 │
-├─ route
+├─ route                       // 라우터 모듈
 │   └─ index.tsx
 │
-├─ App.tsx
+├─ App.tsx                    
 ├─ index.tsx
 └─ vite-env.d.ts
 ```
