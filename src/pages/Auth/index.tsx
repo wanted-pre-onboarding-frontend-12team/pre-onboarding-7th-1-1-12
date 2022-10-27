@@ -37,6 +37,12 @@ const Auth = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (localStorage.getItem('accessToken')) {
+			navigate('/todo');
+		}
+	}, []);
+
 	return (
 		<SignDiv>
 			<Header />

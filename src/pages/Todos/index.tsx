@@ -9,16 +9,15 @@ import AddTodoForm from '../../components/feature/AddTodoForm';
 
 const Todos = () => {
 	const navigate = useNavigate();
-	const isLogged = localStorage.getItem('accessToken');
 	const { getTodos, addTodo, updateTodo, deleteTodo, todoList, newTodo, setNewTodo } = useTodos();
 
 	useEffect(() => {
-		if (isLogged) {
+		if (localStorage.getItem('accessToken')) {
 			getTodos();
 		} else {
 			navigate('/');
 		}
-	}, []);
+	}, [todoList]);
 
 	return (
 		<TodosLayout>
