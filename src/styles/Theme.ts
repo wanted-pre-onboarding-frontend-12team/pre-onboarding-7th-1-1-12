@@ -25,6 +25,7 @@ const colors = {
 
 const Theme = {
 	margin: '16px',
+	width: '400px',
 	fontSize,
 	fontWeight,
 	colors,
