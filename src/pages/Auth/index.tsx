@@ -55,14 +55,13 @@ const Auth = () => {
 		}
 	};
 
-	//FIXME: 리렌더링 문제로 회원가입 버튼을 눌러도 로그인 상황으로 돌아오는 것 같음.
 	useEffect(() => {
 		console.log(signup, '로그인 or 회원가입');
 	}, [signup]);
 
 	return (
 		<SignDiv>
-			<p>로그인</p>
+			{!signup ? <p>로그인</p> : <p>회원가입</p>}
 			<form>
 				<p>이메일</p>
 				<input type="text" placeholder="이메일을 입력해주세요" ref={emailRef} onChange={validateValue} />
@@ -88,20 +87,16 @@ const Auth = () => {
 						회원가입
 					</button>
 				)}
-				{
-					!signup ? (
-						<div className="btnDiv">
-							<p>회원이 아니신가요?</p>
-							<button onClick={() => setSignup(true)}>회원가입</button>
-						</div>
-					) : (
-						<div className="btnDiv">
-							<p>이미 아이디가 있나요?</p>
-							<button onClick={() => setSignup(false)}>로그인</button>
-						</div>
-					)
-					//FIXME: 리렌더링 문제로 회원가입 버튼을 눌러도 로그인 상황으로 돌아오는 것 같음.
-				}
+				{!signup ? (
+					<div className="btnDiv">
+						<p>회원이 아니신가요?</p>
+						<button onClick={() => setSignup(true)}>회원가입</button>
+					</div>
+				) : (
+					<div className="btnDiv">
+						<button onClick={() => setSignup(false)}>로그인</button>
+					</div>
+				)}
 			</form>
 		</SignDiv>
 	);
