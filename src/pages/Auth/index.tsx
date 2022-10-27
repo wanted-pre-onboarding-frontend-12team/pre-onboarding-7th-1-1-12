@@ -3,43 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { SignDiv } from './styled';
 import { authApi } from '../../apis/auth';
 import { AxiosError, AxiosResponse } from 'axios';
+import useInput from '../../components/shared/useInput';
 
 const Auth = () => {
 	const navigate = useNavigate();
-	const emailRef = useRef<HTMLInputElement>(null);
+	const emailCheck = (value: string) => value.includes('@');
+	const maxLen = (value: string) => value.length >= 8;
+	const equalCheck = (value: string) => value === (passwordRef.current && passwordRef.current.value);
+	const email = useInput('email', emailCheck);
+	const password = useInput('password', maxLen);
+	const passwordConfirm = useInput('passwordConfirm', equalCheck);
 	const passwordRef = useRef<HTMLInputElement>(null);
-	const passwordCheckRef = useRef<HTMLInputElement>(null);
 	const [signup, setSignup] = useState<boolean>(false);
-	const [isValid, setIsValid] = useState<boolean>(false);
-
-	const validateValue = () => {
-		if (!signup && emailRef.current && passwordRef.current) {
-			if (emailRef.current.value.includes('@') && passwordRef.current.value.length >= 8) {
-				setIsValid(true);
-				return true;
-			}
-		} else if (signup && emailRef.current && passwordRef.current && passwordCheckRef.current) {
-			if (
-				emailRef.current.value.includes('@') &&
-				passwordRef.current.value.length >= 8 &&
-				passwordRef.current.value === passwordCheckRef.current.value
-			) {
-				setIsValid(true);
-				return true;
-			}
-		}
-		setIsValid(false);
-		return false;
-	};
 
 	const onSign = async (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault();
 		let res: AxiosResponse;
-		if (emailRef.current && passwordRef.current) {
+		if (email.value && password.value) {
 			try {
-				res = signup
-					? await authApi.signUp(emailRef.current.value, passwordRef.current.value)
-					: await authApi.signIn(emailRef.current.value, passwordRef.current.value);
+				res = signup ? await authApi.signUp(email.value, password.value) : await authApi.signIn(email.value, password.value);
 				localStorage.setItem('accessToken', res.data.access_token);
 				navigate('/todo');
 			} catch (err) {
@@ -63,27 +45,54 @@ const Auth = () => {
 		<SignDiv>
 			{!signup ? <p>로그인</p> : <p>회원가입</p>}
 			<form>
-				<p>이메일</p>
-				<input type="text" placeholder="이메일을 입력해주세요" ref={emailRef} onChange={validateValue} />
-				<p>비밀번호</p>
-				<input type="password" placeholder="비밀번호를 입력해주세요" ref={passwordRef} onChange={validateValue} />
-				{signup ? (
-					<div>
-						<p>비밀번호 확인</p>
+				<section>
+					<label htmlFor="email">이메일</label>
+					<input
+						type="email"
+						name="email"
+						id="email"
+						placeholder="wanted@naver.com"
+						required
+						value={email.value}
+						onChange={email.onChange}
+					/>
+					<span>{email.valid ? '' : email.hint}</span>
+				</section>
+				<section>
+					<label>비밀번호</label>
+					<input
+						type="password"
+						name="password"
+						id="password"
+						placeholder="8자 이상 입력해주세요"
+						required
+						value={password.value}
+						onChange={password.onChange}
+						ref={passwordRef}
+					/>
+					<span>{password.valid ? '' : password.hint}</span>
+				</section>
+				{signup && (
+					<section>
 						<input
 							type="password"
-							placeholder="비밀번호를 다시 한번 입력해주세요"
-							ref={passwordCheckRef}
-							onChange={validateValue}
+							name="passwordConfirm"
+							id="passwordConfirm"
+							placeholder="비밀번호 확인"
+							required
+							pattern={passwordRef?.current?.value}
+							value={passwordConfirm.value}
+							onChange={passwordConfirm.onChange}
 						/>
-					</div>
-				) : null}
+						<span>{passwordConfirm.valid ? '' : passwordConfirm.hint}</span>
+					</section>
+				)}
 				{!signup ? (
-					<button disabled={!isValid} onClick={onSign}>
+					<button disabled={!email.valid || !password.valid} onClick={onSign}>
 						로그인
 					</button>
 				) : (
-					<button disabled={!isValid} onClick={onSign}>
+					<button disabled={!email.valid || !password.valid || !passwordConfirm.valid} onClick={onSign}>
 						회원가입
 					</button>
 				)}
