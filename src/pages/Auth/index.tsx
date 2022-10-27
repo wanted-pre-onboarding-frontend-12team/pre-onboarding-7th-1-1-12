@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './styled';
 
@@ -59,6 +59,14 @@ const Auth = () => {
 				}
 			});
 	};
+
+	useEffect(() => {
+		if (localStorage.getItem('TOKEN')) {
+			navigate('/todo');
+			alert('✅ 자동 로그인되었습니다.');
+		}
+		return;
+	}, [navigate]);
 
 	return (
 		<S.AuthWrap>
