@@ -14,7 +14,7 @@ const AddTodoForm = () => {
 					setNewTodo(e.currentTarget.value);
 				}}
 			/>
-			<button disabled={newTodo.length === 0} onClick={addTodo}>
+			<button type="submit" disabled={newTodo.length === 0} onClick={addTodo}>
 				추가하기
 			</button>
 		</AddLayout>
