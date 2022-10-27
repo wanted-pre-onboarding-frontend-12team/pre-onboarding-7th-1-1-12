@@ -39,10 +39,11 @@ const Todo = ({ todo, deleteTodo, updateTodo }: TodosProps) => {
 					onClick={() => {
 						setNewCheck((prev) => !prev);
 						checkTodo();
+						console.log(todo.isCompleted, '클릭여부확인');
 					}}
 					disabled={editMode}
 				>
-					{newCheck ? <p>✅</p> : <p>⬜</p>}
+					{todo.isCompleted ? <p>✅</p> : <p>⬜</p>}
 				</Btn>
 				{editMode ? (
 					<>

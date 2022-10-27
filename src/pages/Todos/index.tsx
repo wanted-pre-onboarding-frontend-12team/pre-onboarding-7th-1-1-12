@@ -8,21 +8,12 @@ import Header from '../../components/shared/header';
 import AddTodoForm from '../../components/feature/AddTodoForm';
 
 const Todos = () => {
-	const navigate = useNavigate();
 	const { getTodos, addTodo, updateTodo, deleteTodo, todoList, newTodo, setNewTodo } = useTodos();
-
-	useEffect(() => {
-		if (localStorage.getItem('accessToken')) {
-			getTodos();
-		} else {
-			navigate('/');
-		}
-	}, [todoList]);
 
 	return (
 		<TodosLayout>
 			<Header />
-			<AddTodoForm />
+			<AddTodoForm addTodo={addTodo} newTodo={newTodo} setNewTodo={setNewTodo} />
 			{todoList.length > 0 && (
 				<div className="todoList">
 					{todoList.map((todo) => (

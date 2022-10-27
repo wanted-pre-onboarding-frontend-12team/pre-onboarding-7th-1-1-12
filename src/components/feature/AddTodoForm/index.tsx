@@ -1,11 +1,11 @@
 import useTodos from '../../../pages/Todos/useTodos';
 import { AddLayout } from './styled';
 
-const AddTodoForm = () => {
-	const { addTodo, newTodo, setNewTodo } = useTodos();
+import { AddTodoProps } from '../../../utils/interfaces';
 
+const AddTodoForm = ({ addTodo, newTodo, setNewTodo }: AddTodoProps) => {
 	return (
-		<AddLayout>
+		<AddLayout onSubmit={addTodo}>
 			<input
 				type="text"
 				placeholder="해야할 일을 적어주세요~"
@@ -14,7 +14,7 @@ const AddTodoForm = () => {
 					setNewTodo(e.currentTarget.value);
 				}}
 			/>
-			<button type="submit" disabled={newTodo.length === 0} onClick={addTodo}>
+			<button type="submit" disabled={newTodo.length === 0}>
 				추가하기
 			</button>
 		</AddLayout>

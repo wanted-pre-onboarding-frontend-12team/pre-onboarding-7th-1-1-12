@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AxiosResponse } from 'axios';
 
 import { todoApi } from '../../apis/todo';
 import { TodoResponse } from '../../utils/interfaces';
+import { useNavigate } from 'react-router-dom';
 
 const useTodos = () => {
 	const [todoList, setTodoList] = useState<TodoResponse[]>([]);
 	const [newTodo, setNewTodo] = useState<string>('');
+	const navigate = useNavigate();
 
 	const getTodos = async () => {
 		let res: AxiosResponse;
@@ -18,7 +20,7 @@ const useTodos = () => {
 		}
 	};
 
-	const addTodo = async (e: React.FormEvent<HTMLElement>) => {
+	const addTodo = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (newTodo.length === 0) {
 			return;
@@ -56,6 +58,14 @@ const useTodos = () => {
 			}
 		}
 	};
+
+	useEffect(() => {
+		if (localStorage.getItem('accessToken')) {
+			getTodos();
+		} else {
+			navigate('/');
+		}
+	}, []);
 
 	return {
 		getTodos,
