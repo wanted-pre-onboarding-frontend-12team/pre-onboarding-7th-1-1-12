@@ -6,6 +6,12 @@ export const SignDiv = styled.div`
 	form {
 		display: flex;
 		flex-direction: column;
+		input {
+			width: 100%;
+		}
+		button {
+			margin-top: 1rem;
+		}
 		.btnDiv {
 			display: flex;
 			flex-direction: row;
