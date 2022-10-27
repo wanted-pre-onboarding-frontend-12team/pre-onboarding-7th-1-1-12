@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { SignDiv } from './styled';
 import { authApi } from '../../apis/auth';
 import { AxiosError, AxiosResponse } from 'axios';
-import useInput from '../../components/shared/useInput';
+import useInput from './useInput';
+import Footer from '../../components/feature/footer';
 
 const Auth = () => {
 	const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Auth = () => {
 	const passwordRef = useRef<HTMLInputElement>(null);
 	const [signup, setSignup] = useState<boolean>(false);
 
-	const onSign = async (e: React.MouseEvent<HTMLElement>) => {
+	const onSign = async (e: React.FormEvent<HTMLElement>) => {
 		e.preventDefault();
 		let res: AxiosResponse;
 		if (email.value && password.value) {
@@ -28,18 +29,12 @@ const Auth = () => {
 				const e = err as AxiosError;
 				if (e.isAxiosError) {
 					alert(e.message);
-					console.log(e.message);
 				} else {
 					alert('에러 발생: ' + err);
-					console.log(err);
 				}
 			}
 		}
 	};
-
-	useEffect(() => {
-		console.log(signup, '로그인 or 회원가입');
-	}, [signup]);
 
 	return (
 		<SignDiv>
@@ -47,22 +42,13 @@ const Auth = () => {
 			<form>
 				<section>
 					<label htmlFor="email">이메일</label>
-					<input
-						type="email"
-						name="email"
-						id="email"
-						placeholder="wanted@naver.com"
-						required
-						value={email.value}
-						onChange={email.onChange}
-					/>
+					<input type="email" id="email" placeholder="wanted@naver.com" required value={email.value} onChange={email.onChange} />
 					<span>{email.valid ? '' : email.hint}</span>
 				</section>
 				<section>
-					<label>비밀번호</label>
+					<label htmlFor="password">비밀번호</label>
 					<input
 						type="password"
-						name="password"
 						id="password"
 						placeholder="8자 이상 입력해주세요"
 						required
@@ -74,9 +60,9 @@ const Auth = () => {
 				</section>
 				{signup && (
 					<section>
+						<label htmlFor="passwordConfirm">비밀번호 확인</label>
 						<input
 							type="password"
-							name="passwordConfirm"
 							id="passwordConfirm"
 							placeholder="비밀번호 확인"
 							required
@@ -96,17 +82,8 @@ const Auth = () => {
 						회원가입
 					</button>
 				)}
-				{!signup ? (
-					<div className="btnDiv">
-						<p>회원이 아니신가요?</p>
-						<button onClick={() => setSignup(true)}>회원가입</button>
-					</div>
-				) : (
-					<div className="btnDiv">
-						<button onClick={() => setSignup(false)}>로그인</button>
-					</div>
-				)}
 			</form>
+			<Footer signup={signup} setSignup={setSignup} />
 		</SignDiv>
 	);
 };

@@ -12,14 +12,5 @@ export const SignDiv = styled.div`
 		button {
 			margin-top: 1rem;
 		}
-		.btnDiv {
-			display: flex;
-			flex-direction: row;
-			button {
-				background-color: transparent;
-				border: 0;
-				color: violet;
-			}
-		}
 	}
 `;
