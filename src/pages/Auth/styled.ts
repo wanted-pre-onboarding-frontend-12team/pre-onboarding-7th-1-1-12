@@ -14,7 +14,7 @@ export const AuthBox = styled.form`
 	width: 250px;
 	height: 300px;
 	padding-bottom: 20px;
-	border: 1px solid lightgray;
+	border: 1px solid ${({ theme }) => theme.lightGray};
 	border-radius: 12px;
 `;
 
@@ -28,7 +28,7 @@ export const IdInput = styled.input`
 	height: 30px;
 	padding: 0 10px;
 	border: none;
-	border: 1px solid lightgray;
+	border: 1px solid ${({ theme }) => theme.lightGray};
 	border-radius: 4px;
 `;
 
@@ -37,18 +37,18 @@ export const PwInput = styled(IdInput)``;
 export const AuthBtn = styled.button`
 	width: 200px;
 	height: 35px;
-	background-color: #68ab68;
+	background-color: ${({ theme }) => theme.green};
 	border: none;
 	border-radius: 4px;
 	color: white;
 	font-weight: bold;
 	&:disabled {
-		background-color: #68ab6844;
+		background-color: ${({ theme }) => theme.lightGreen};
 	}
 `;
 export const ChangeAuthBtn = styled.div`
 	font-size: 13px;
 	font-weight: bold;
-	color: #305230;
+	color: ${({ theme }) => theme.darkGreen};
 	cursor: pointer;
 `;

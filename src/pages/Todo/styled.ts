@@ -12,7 +12,7 @@ export const TodoWrap = styled.div`
 export const TodoInputWrap = styled.form``;
 
 export const TodoTitle = styled.h1`
-	color: #486c48;
+	color: ${({ theme }) => theme.darkGreen};
 `;
 
 export const TodoInput = styled.input`
@@ -28,7 +28,7 @@ export const TodoInput = styled.input`
 
 	:focus {
 		border: 1px solid darkgray;
-		background-color: #486c4813;
+		background-color: ${({ theme }) => theme.whiteGreen};
 	}
 `;
 
@@ -37,10 +37,10 @@ export const CreateTodoBtn = styled.button`
 	height: 35px;
 	border: none;
 	border-radius: 10px;
-	background-color: #68ab68;
-	color: white;
+	background-color: ${({ theme }) => theme.green};
+	color: ${({ theme }) => theme.white};
 	font-weight: bold;
 	:active {
-		background-color: #68ab68be;
+		background-color: ${({ theme }) => theme.lightGreen};
 	}
 `;
