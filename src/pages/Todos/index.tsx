@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { TodosDiv } from './styled';
+import { TodosLayout } from './styled';
 import Todo from '../../components/feature/Todo';
 import useTodos from './useTodos';
+import Header from '../../components/shared/header';
+import AddTodoForm from '../../components/feature/AddTodoForm';
 
 const Todos = () => {
 	const navigate = useNavigate();
@@ -18,27 +20,10 @@ const Todos = () => {
 		}
 	}, []);
 
-	const Logout = () => {
-		localStorage.removeItem('accessToken');
-		navigate('/');
-	};
-
 	return (
-		<TodosDiv>
-			<h1>투두 리스트</h1>
-			<div className="createTodo">
-				<input
-					type="text"
-					placeholder="해야할 일을 적어주세요~"
-					value={newTodo}
-					onChange={(e) => {
-						setNewTodo(e.currentTarget.value);
-					}}
-				/>
-				<button disabled={newTodo.length === 0} onClick={addTodo}>
-					추가하기
-				</button>
-			</div>
+		<TodosLayout>
+			<Header />
+			<AddTodoForm />
 			{todoList.length > 0 && (
 				<div className="todoList">
 					{todoList.map((todo) => (
@@ -46,11 +31,7 @@ const Todos = () => {
 					))}
 				</div>
 			)}
-
-			<button className="logoutBtn" onClick={Logout}>
-				로그아웃
-			</button>
-		</TodosDiv>
+		</TodosLayout>
 	);
 };
 export default Todos;

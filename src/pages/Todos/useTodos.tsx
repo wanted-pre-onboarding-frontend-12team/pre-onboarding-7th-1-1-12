@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AxiosResponse } from 'axios';
 
 import { todoApi } from '../../apis/todo';
-import { TodoResponse } from '../../\butils/interfaces';
+import { TodoResponse } from '../../utils/interfaces';
 
 const useTodos = () => {
 	const [todoList, setTodoList] = useState<TodoResponse[]>([]);

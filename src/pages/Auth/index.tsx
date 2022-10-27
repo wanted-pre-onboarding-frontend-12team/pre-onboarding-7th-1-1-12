@@ -4,7 +4,8 @@ import { SignDiv } from './styled';
 import { authApi } from '../../apis/auth';
 import { AxiosError, AxiosResponse } from 'axios';
 import useInput from './useInput';
-import Footer from '../../components/feature/footer';
+import Header from '../../components/shared/header';
+import Footer from '../../components/shared/footer';
 
 const Auth = () => {
 	const navigate = useNavigate();
@@ -38,7 +39,7 @@ const Auth = () => {
 
 	return (
 		<SignDiv>
-			{!signup ? <p>로그인</p> : <p>회원가입</p>}
+			<Header />
 			<form>
 				<section>
 					<label htmlFor="email">이메일</label>
