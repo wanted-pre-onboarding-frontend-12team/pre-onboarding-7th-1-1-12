@@ -3,9 +3,18 @@ import 'styled-components';
 declare module 'styled-components' {
 	export interface DefaultTheme {
 		fontSizes: {
-			title: string;
-			subTitle: string;
-			paragraph: string;
+			small: string;
+			normal: string;
+			medium: string;
+			large: string;
+		};
+		fontWeights: {
+			light: 300;
+			normal: 400;
+			medium: 500;
+			semiBold: 600;
+			bold: 700;
+			strongBold: 800;
 		};
 		colors: {
 			black: '#000000';
@@ -15,6 +24,11 @@ declare module 'styled-components' {
 			green: '#44bd32';
 			blue: '#3498db';
 			primary: '#273c75';
+		};
+		layout: {
+			flexCenter: string;
+			flexColumn: string;
+			flexCenterColumn: string;
 		};
 	}
 }
