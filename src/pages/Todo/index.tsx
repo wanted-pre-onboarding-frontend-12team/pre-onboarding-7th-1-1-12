@@ -7,6 +7,7 @@ import { getTodos, postTodo, putTodo, deleteTodo } from '../../apis/todo';
 
 function Todos() {
 	type Todolist = { id: number; isCompleted: boolean; todo: string };
+
 	const token = localStorage.getItem('token');
 	const [todo, setTodo] = useState('');
 	const [todolist, setTodolist] = useState<Todolist[]>([]);
